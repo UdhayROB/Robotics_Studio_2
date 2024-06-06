@@ -1,0 +1,2 @@
+string action
+geometry_msgs/Pose pose_msg
