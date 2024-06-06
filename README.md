@@ -24,7 +24,9 @@ python3 ur3_control.py
 
 Working- 
 
-https://github.com/UdhayROB/Robotics_Studio_2/assets/143361662/17968313-adc6-4dc1-8aac-5abb95b98635
 
-https://github.com/UdhayROB/Robotics_Studio_2/assets/143361662/3fae40dc-62e4-4f29-9e9b-da085b51a752
+https://github.com/UdhayROB/Robotics_Studio_2/assets/143361662/c08eea34-985d-4666-b72b-cd8b1ed06c8a
+
+
+https://github.com/UdhayROB/Robotics_Studio_2/assets/143361662/9a42e940-36eb-4eb3-bda3-3f0bdbd0687e
 
