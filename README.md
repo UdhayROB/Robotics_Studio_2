@@ -6,6 +6,8 @@ Dependencies-
 2. Moveit- https://github.com/moveit/moveit
 3. OnRobot Gripper- https://github.com/Osaka-University-Harada-Laboratory/onrobot
 
+Clone these files into a src folder in a workspace and build.
+
 Command sequence-
  
 roslaunch rosbridge_server rosbridge_websocket.launch
