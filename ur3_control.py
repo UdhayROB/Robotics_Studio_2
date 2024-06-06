@@ -9,29 +9,7 @@ import geometry_msgs.msg
 from onrobot_rg_control.msg import OnRobotRGOutput
 from msg_package.msg import action_msg
 
-top_of_turtlebot_pose = geometry_msgs.msg.Pose()
-top_of_turtlebot_pose.orientation.y = 1.0
-top_of_turtlebot_pose.orientation.w = 0
-top_of_turtlebot_pose.position.x = 0.1
-top_of_turtlebot_pose.position.y = 0.30
-top_of_turtlebot_pose.position.z = 0.3
-
-top_of_storage_pose = geometry_msgs.msg.Pose()
-top_of_storage_pose.orientation.y = 1.0
-top_of_storage_pose.orientation.w = 0
-top_of_storage_pose.position.x = 0.1
-top_of_storage_pose.position.y = -0.25
-top_of_storage_pose.position.z = 0.45
-
-pose_target = geometry_msgs.msg.Pose()
-pose_target.orientation.y = 1.0
-pose_target.orientation.w = 0
-pose_target.position.x = -0.1
-pose_target.position.y = 0.4
-pose_target.position.z = -0.2
-
-storage_dict = {#"0":[False, 0.2, -0.25, 0.2],
-                "1":[False, 0.1, -0.25, 0.2],
+storage_dict = {"1":[False, 0.1, -0.25, 0.2],
                 "2":[False, 0.0, -0.25, 0.2],
                 "3":[False, -0.1, -0.25, 0.2]
                 };
@@ -123,8 +101,8 @@ def retreat():
     group.clear_pose_targets()
     pose_target = group.get_current_pose().pose
     # Maintain orientation
-    # pose_target.orientation.y = 1.0
-    # pose_target.orientation.w = 0
+    pose_target.orientation.y = 1.0
+    pose_target.orientation.w = 0
     # Account for gripper length
     pose_target.position.z += 0.05
     group.set_pose_target(pose_target)
@@ -136,21 +114,6 @@ def retreat():
     group.stop()
     group.clear_pose_targets()
     return success
-
-def go_to_loc(data):
-    drop_pose = copy.deepcopy(data.pose_msg)
-    drop_pose.orientation.y = 1.0
-    drop_pose.orientation.w = 0.0
-    drop_pose.position.z += 0.21
-    group.set_pose_target(drop_pose)
-    print(drop_pose)
-    success = group.go(wait=True)
-    if(success):
-        print("Planned and Executed")
-    else:
-        print("Failed to plan/ reach approach pose")
-    group.stop()
-    group.clear_pose_targets()
 
 def control_callback_full(data):
     #Keyword based on turtlebots perspective- pickup from storage, drop to store
@@ -214,35 +177,6 @@ def control_callback_full(data):
         else:
             print("No storage space available")
 
-def control_callback(pose_msg):
-    pose_target = geometry_msgs.msg.Pose()
-    pose_target = copy.deepcopy(pose_msg)
-    # Maintain orientation
-    pose_target.orientation.y = 1.0
-    pose_target.orientation.w = 0
-    # Account for gripper length
-    pose_target.position.z += 0.21
-    approach_pose = geometry_msgs.msg.Pose()
-    approach_pose = copy.deepcopy(pose_msg)
-    approach_pose.orientation.y = 1.0
-    approach_pose.orientation.w = 0
-    approach_pose.position.z += 0.24
-    group.set_pose_target(approach_pose)
-    success = group.go(wait=True)
-    if(success):
-        group.stop()
-        group.clear_pose_targets()
-        group.set_pose_target(pose_target)
-        success = group.go(wait=True)
-        if(success):
-            print("Successful")
-        # command = genCommand('c')
-        # pub.publish(command)
-    else:
-        print("Failed to plan/ reach")
-    group.stop()
-    group.clear_pose_targets()
-
 def setJointConstraints():
     jointConstraint0 = moveit_msgs.msg.JointConstraint()
     jointConstraint0.joint_name = "shoulder_pan_joint"
@@ -301,7 +235,7 @@ if __name__ == '__main__':
         gtype = rospy.get_param('/onrobot/gripper', 'rg2')
 
         pub = rospy.Publisher('OnRobotRGOutput', OnRobotRGOutput, queue_size=1)
-        sub = rospy.Subscriber("/ur3pose", action_msg, control_callback_full)#go_to_loc)#control_callback_full)
+        sub = rospy.Subscriber("/ur3pose", action_msg, control_callback_full)
         rospy.spin()
         
     except KeyboardInterrupt:
