@@ -1,12 +1,12 @@
 # Robotics_Studio_2
 Pick and Place using UR3
 
+Clone these files into a src folder in a workspace and build.
+
 Dependencies-
 1. Universal_Robots_ROS_Driver- https://github.com/UniversalRobots/Universal_Robots_ROS_Driver
 2. Moveit- https://github.com/moveit/moveit
 3. OnRobot Gripper- https://github.com/Osaka-University-Harada-Laboratory/onrobot
-
-Clone these files into a src folder in a workspace and build.
 
 Command sequence-
  
